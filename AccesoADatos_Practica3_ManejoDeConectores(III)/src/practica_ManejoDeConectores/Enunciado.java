@@ -16,29 +16,35 @@ public class Enunciado {
 		try {
 			
 			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/empleados","vespertino","password");
-			Statement sentencia = conexion.createStatement();
-			String consulta = "SELECT * FROM empleado";
-			ResultSet resultado = sentencia.executeQuery(consulta);
-			ResultSetMetaData resultadoMeta = resultado.getMetaData();
 			
 			String departamento = args [0];
-			int departamento = Integer.parseInt(departamento);
-			DecimalFormat formato = new DecimalFormat("##,##0.00");
+			int departamentoPareseo = Integer.parseInt(departamento);
+			DecimalFormat formatoDecimal = new DecimalFormat("##,##0.00");
 			
-			PreparedStatement sentenci = conexión.prepareStatement(sql);
+			String sql = "SELECT apellido1,nif,salario FROM empleados WHERE codigo_departamento = (?) ";
+			PreparedStatement sentencia = conexion.prepareStatement(sql);
 
-
-			String primerApellido = args[1];
-			String nif = args[2];
-			String salarioEmpleados = args[3];
+			sentencia.setInt(1, departamentoPareseo);
+			ResultSet resultado = sentencia.executeQuery();
 			
-			if (resultado.next() == false) {
+			
+		if (resultado.next() == false) {
 				
-				System.out.println("El departamento " + depatamento + " no existe en la BBDD ");
+				System.out.println("El departamento " + departamentoPareseo + " no existe en la BBDD.");
 			
 			} else {
+				resultado.beforeFirst();
 				
-			}
+				while (resultado.next()) {
+					
+					String apellido1 = resultado.getString(1);
+					String nif = resultado.getString(2);
+					Float salario = resultado.getFloat(3);
+					
+					System.out.println("apellido " + apellido1 + "nif" + nif + "salario" + salario);
+					
+				}
+			} 
 			
 		} catch (SQLException e){
 			
