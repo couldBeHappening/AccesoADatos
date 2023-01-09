@@ -50,7 +50,8 @@ public class Enunciado {
 
 					} while (resultado.next());
 
-					System.out.println("El salario medio del departamento " + nombreDepartamento + " es: " + formatoDecimal.format(media) + "€");
+					String salarioMedio = formatoDecimal.format(media);
+					System.out.println("El salario medio del departamento " + nombreDepartamento + " es: " + salarioMedio + "€");
 
 				} else {
 
