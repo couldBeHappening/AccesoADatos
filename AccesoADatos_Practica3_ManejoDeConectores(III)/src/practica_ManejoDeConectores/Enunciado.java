@@ -22,8 +22,7 @@ public class Enunciado {
 				int departamentoParseo = Integer.parseInt(departamento);
 				DecimalFormat formatoDecimal = new DecimalFormat("##,##0.00");
 
-				/* Preparación de la primera consulta que vamos a realizar, se utilizan los marcadores (?) para indicar dónde
-				 * van los datos añadidos después */
+				/* Preparación de la primera consulta que vamos a realizar, se utilizan los marcadores (?) para indicar dónde van los datos añadidos después */
 				String sql = "SELECT apellido1,nif,salario FROM empleado WHERE codigo_departamento = (?) ";
 				PreparedStatement sentencia = conexion.prepareStatement(sql);
 
@@ -31,8 +30,7 @@ public class Enunciado {
 				sentencia.setInt(1, departamentoParseo);
 				ResultSet resultado = sentencia.executeQuery();
 
-				/* Preparación de la segunda consulta que vamos a realizar , se utilizan los marcadores (?) para indicar dónde
-				 * van los datos añadidos después */
+				/* Preparación de la segunda consulta que vamos a realizar , se utilizan los marcadores (?) para indicar dónde van los datos añadidos después */
 				String sql2 = "SELECT AVG(salario),dep.nombre FROM empleado emple,departamento dep WHERE dep.codigo = (?) AND emple.codigo_departamento=dep.codigo"; 
 				PreparedStatement sentencia2 = conexion.prepareStatement(sql2);
 
@@ -41,28 +39,28 @@ public class Enunciado {
 				ResultSet resultado2 = sentencia2.executeQuery();
 
 				/* Condicional if - else para comprobar si la consulta nos devuelde resultados */
-				
 				if (resultado.next() == true) {
 
-					/* Si hay resultados recuperamos la media y el nombre y lo imprimimos */
-					resultado2.next();
+					
+					resultado2.next(); /* Comprobamos que haya resulttado */
 
-					Float media = resultado2.getFloat(1);
+					/* Recuperamos la media de salario y el nombre de departamento */
+					Float media = resultado2.getFloat(1); 
 					String nombreDepartamento = resultado2.getString(2);
 
-
-					System.out.println("Los empleados del departamento " + nombreDepartamento + ", con código " + departamento + " son:");
+					System.out.println("Los empleados del departamento " + nombreDepartamento + ", con código " + departamento + " son:"); /* Imprimimos el resultado */
 
 					/* Bucle do - while que recorre todos los resultados de la primera consulta y los muestra */
 					do { 
 
-						String apellido1 = resultado.getString(1);
+						/* Inicializamos las variable guardando los resultados que obtenemos de la busqueda */
+						String apellido1 = resultado.getString(1); 
 						String nif = resultado.getString(2);
 						Float salario = resultado.getFloat(3);
 
 						System.out.println("El primer apellido del empleado es: " + apellido1 + " con NIF: " + nif + ", y tiene un salario de: " + salario + "€");
 
-					} while (resultado.next());
+					} while (resultado.next());  /* El bucle finaliza cuando no hay más resultados */
 
 					/* Mostramos la media con formato */
 					String salarioMedio = formatoDecimal.format(media);
@@ -73,7 +71,7 @@ public class Enunciado {
 					System.out.println("El departamento " + departamentoParseo + " no existe en la BBDD.");
 
 				} 
-				
+
 				/* Cerramos todos los objetos SQL*/
 				conexion.close();
 				sentencia.close();
