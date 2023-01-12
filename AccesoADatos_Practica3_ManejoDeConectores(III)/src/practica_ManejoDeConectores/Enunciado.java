@@ -75,7 +75,7 @@ public class Enunciado {
 				/* Cerramos todos los objetos SQL*/
 				conexion.close();
 				sentencia.close();
-				sentencia2.close();
+				sentencia2.close();	 
 				resultado.close();
 				resultado2.close();
 
