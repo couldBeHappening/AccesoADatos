@@ -44,7 +44,7 @@ public class Enunciado {
 						if (SwitchOpcion2.muestraDatosInsertados() == true) {
 							String inTo = SwitchOpcion2.generarInsert(conexion, sentencia);
 							teclado.nextLine();
-							empleadosInsertados += sentencia.executeUpdate("INTO");
+							empleadosInsertados += sentencia.executeUpdate(inTo);
 							
 							System.out.println("Los datos del empleado se han introducido de forma correcta. Gracias");
 						} else {
