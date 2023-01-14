@@ -1,7 +1,6 @@
 package practica_ManejoDeConectores;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
+
 public class SwitchOpcion1 {
 	
 	

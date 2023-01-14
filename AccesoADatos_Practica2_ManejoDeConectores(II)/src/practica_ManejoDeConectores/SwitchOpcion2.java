@@ -1,29 +1,42 @@
 package practica_ManejoDeConectores;
 import java.sql.*;
-import java.util.ArrayList;
+
 import java.util.InputMismatchException;
-import java.util.Scanner;
 public class SwitchOpcion2 {
-	
+
 
 	public static int solicitarDatos (Connection conexion, Statement sentencia, ResultSet resultado) throws SQLException {
 		int contadorError = 3;
-		
+
 		for (int i = 0; i < Enunciado.numColumnas -1 && contadorError > 0; i++) {
-			
+
 			System.out.println("Introduce: " + Enunciado.nombreColumna.get(i) + " de tipo: " + Enunciado.tipoColumna.get(i));
-			
+
 			String guardaDatos = Enunciado.teclado.nextLine();
-			
-			if (!compruebaDatos(guardaDatos,i,conexion,sentencia) || guardaDatos.length() <= 0 || guardaDatos.equalsIgnoreCase("null")) {
-				
+
+			if (guardaDatos.length() <= 0){
+				System.out.println("El campo no puede estar vacio.");
+
+
 				i--;
 				contadorError --;
-				
-				System.out.println("El dato introducido no es válido");
-				
+
+
+			} else if (guardaDatos.equalsIgnoreCase("null")){
+				System.out.println("El dato introducido no puede ser null.");
+
+
+				i--;
+				contadorError --;
+
+			} else if (!compruebaDatos(guardaDatos,i,conexion,sentencia)) {
+				System.out.println("El dato introducido no es correcto.");
+
+				i--;
+				contadorError --;
+
 			} else {
-				
+
 				Enunciado.guardarDatos.add(guardaDatos);
 				contadorError = 3;
 				System.out.println("¡El dato se ha guardado de forma correcta!");
@@ -32,26 +45,26 @@ public class SwitchOpcion2 {
 		return contadorError;
 	}
 	public static String generarInsert (Connection conexion, Statement sentencia) {
-		
+
 		String guardar = "INSERT INTO empleado VALUES (";
-		
+
 		for (int i = 0; i < Enunciado.numColumnas -1;  i++) {
-			
+
 			if (Enunciado.tipoColumna.get(i).equalsIgnoreCase("VARCHAR")) {
-				
+
 				guardar += "'" + Enunciado.guardarDatos.get(i) + "',";
-			
+
 			} else
 				guardar += Enunciado.guardarDatos.get(i) + ",";
-		
+
 		}
-		
-		guardar += "CURDATE () );";
-		
+
+		guardar += "CURDATE());";
+
 		return guardar;
-		
+
 	} 
-	
+
 	public static boolean muestraDatosInsertados () {
 		boolean opcionRespuesta = false;
 		int opcion;
@@ -103,7 +116,7 @@ public class SwitchOpcion2 {
 					ResultSet resultado;
 					resultado = sentencia.executeQuery("SELECT codigo FROM departamento;");
 					while (resultado.next()) {
-						
+
 						int busqueda = resultado.getInt(1);
 						if (busqueda == dato) {
 							comprobar = true;

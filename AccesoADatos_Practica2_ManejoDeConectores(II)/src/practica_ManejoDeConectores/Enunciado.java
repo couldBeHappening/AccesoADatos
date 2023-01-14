@@ -1,26 +1,46 @@
 package practica_ManejoDeConectores;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Enunciado {
+	
 	public static Scanner teclado = new Scanner (System.in);
 	public static ArrayList <String> nombreColumna = new ArrayList <String> ();
 	public static ArrayList <String> tipoColumna = new ArrayList <String> ();
 	public static ArrayList <String> guardarDatos;
 	public static int numColumnas;
+	
+	
 	public static void main(String[] args) {
+		
 		int opciones = 0;
 		int contador = 3;
 		int empleadosInsertados = 0;
+		
+		
 		try {
+			
 			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/empleados","vespertino","password");
 			Statement sentencia = conexion.createStatement();
-			String consulta = "SELECT * FROM empleado";
+			Statement sentencia2 = conexion.createStatement();
+			
+			String consulta = "SELECT * FROM empleado;";
 			ResultSet resultado = sentencia.executeQuery(consulta);
+			String consultaFecha = "SELECT CURDATE()";
+			ResultSet resultadoFecha = sentencia2.executeQuery(consultaFecha);
+			
+			resultadoFecha.next();
+			String fechaActual = new SimpleDateFormat ("dd-MM-yyyy").format(resultadoFecha.getDate(1));
+			
+			
 			ResultSetMetaData resultadoMeta = resultado.getMetaData();
-			System.out.println("¡Hola! Indica que opción quieres realizar: ");
+			
+			System.out.println("¡Hola! Hoy es día " + fechaActual +  ". Indica que opción quieres realizar: ");
+			
 			SwitchOpcion1.informacionTabla (conexion, sentencia, resultadoMeta);
+			
 			do {
 				System.out.println("1. Consulta tabla empleado.");
 				System.out.println("2. Introduce nuevo empleado.");
@@ -46,7 +66,7 @@ public class Enunciado {
 							teclado.nextLine();
 							empleadosInsertados += sentencia.executeUpdate(inTo);
 							
-							System.out.println("Los datos del empleado se han introducido de forma correcta. Gracias");
+							System.out.println("Los datos se han introducido de forma correcta con fecha de alta Gracias");
 						} else {
 							System.out.println("No se han introducido los datos");
 						}
