@@ -69,6 +69,7 @@ public class Enunciado {
 
 							contador = 0;
 							System.out.println("¡Error! Has bloqueado el sistema, intentalo de nuevo más tarde con las opciones disponibles. Gracias.");
+							System.out.println("Se han insertado " + empleadosInsertados + " empleados en la BBDD empleado.");
 							break;
 						}
 
@@ -77,6 +78,8 @@ public class Enunciado {
 							String inTo = SwitchOpcion2.generarInsert(conexion, sentencia);
 							teclado.nextLine();
 							empleadosInsertados += sentencia.executeUpdate(inTo);
+							
+							empleadosInsertados ++;
 
 							System.out.println("Los datos se han introducido de forma correcta con fecha de alta Gracias");
 
@@ -87,7 +90,7 @@ public class Enunciado {
 						break;
 
 					case 3:
-						System.out.println("¡Hasta pronto!");
+						System.out.println("Se han insertado " + empleadosInsertados + " empleados en la BBDD empleado. ¡Gracias por usar el programa!");
 						break;
 
 					default:	
@@ -97,6 +100,7 @@ public class Enunciado {
 						if (contador == 0) {
 
 							System.out.println("¡Error! Has bloqueado el sistema, intentalo de nuevo más tarde con las opciones disponibles. Gracias.");
+							System.out.println("Se han insertado " + empleadosInsertados + " empleados en la BBDD empleado.");
 
 						} else {
 							System.out.println("La opción introducida no es correcta, por favor revisa las opciones disponibles. Gracias.");
@@ -111,6 +115,7 @@ public class Enunciado {
 					if (contador == 0) {
 
 						System.out.println("¡Error! Has bloqueado el sistema, intentalo de nuevo más tarde con las opciones disponibles. Gracias.");
+						System.out.println("Se han insertado " + empleadosInsertados + " empleados en la BBDD empleado.");
 
 					} else {
 						System.out.println("La opción introducida no es correcta, por favor revisa las opciones disponibles. Gracias.");
