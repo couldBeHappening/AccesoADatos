@@ -35,16 +35,15 @@ public class Enunciado {
 
 			String consultaFecha = "SELECT CURDATE()";
 			ResultSet resultadoFecha = sentencia2.executeQuery(consultaFecha);
+			
+			ResultSetMetaData resultadoMeta = resultado.getMetaData();
+			SwitchOpcion1.informacionTabla (conexion, sentencia, resultadoMeta);
 
 			resultadoFecha.next();
 
-			String fechaActual = new SimpleDateFormat ("dd-MM-yyyy").format(resultadoFecha.getDate(1));
+			String fechaActual = new SimpleDateFormat ("dd-MM-yyyy").format(resultadoFecha.getDate(1));			
 
-			ResultSetMetaData resultadoMeta = resultado.getMetaData();
-
-			System.out.println("¡Hola! Hoy es día " + fechaActual +  ". Indica que opción quieres realizar: ");
-
-			SwitchOpcion1.informacionTabla (conexion, sentencia, resultadoMeta);
+			System.out.println("¡Hola! Hoy es día " + fechaActual +  ". Indica que opción quieres realizar: ");			
 
 			do {
 				System.out.println("1. Consulta tabla empleado.");
