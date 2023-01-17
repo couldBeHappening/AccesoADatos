@@ -10,7 +10,7 @@ public class SwitchOpcion2 {
 
 		for (int i = 0; i < Enunciado.numColumnas && contadorError > 0; i++) {
 
-			System.out.println("Introduce: " + Enunciado.nombreColumna.get(i) + " de tipo: " + Enunciado.tipoColumnaJava.get(i));
+			System.out.println("Introduce: " + Enunciado.nombreColumna.get(i) + " de tipo: " + Enunciado.tipoColumna.get(i) + " (" + Enunciado.tipoColumnaJava.get(i) + ")");
 
 			String guardaDatos = Enunciado.teclado.nextLine();
 
@@ -26,6 +26,12 @@ public class SwitchOpcion2 {
 				i--;
 				contadorError --;
 
+			} else if (guardaDatos.equals(Enunciado.fechaActual)) {
+				System.out.println("La fecha introducida no se corresponde con la actual.");
+
+				i--;
+				contadorError --;
+				
 			} else if (!compruebaDatos(guardaDatos,i,conexion,sentencia)) {
 				System.out.println("El dato introducido no es correcto.");
 

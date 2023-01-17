@@ -43,9 +43,10 @@ public class SwitchOpcion1 {
 		for (int i = 1; i <= Enunciado.numColumnas; i++) {
 			
 			String nombre = resultadoMeta.getColumnName(i).toString();
-			String tipo = Enunciado.tipoColumnaJava.get(i-1);
+			String tipo = Enunciado.tipoColumna.get(i-1);
+			String tipoJava = Enunciado.tipoColumnaJava.get(i-1);
 			
-			System.out.println("Nombre Columna: " + nombre + " Tipo Columna: " + tipo);
+			System.out.println("Nombre Columna: " + nombre + " Tipo Columna: " + tipo + " (" + tipoJava + ")");
 		}
 	}
 	
