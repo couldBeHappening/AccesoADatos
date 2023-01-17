@@ -27,7 +27,7 @@ public class SwitchOpcion1 {
 				tipoJava = "Fecha actual en formato AAAA-MM-DD";
 			}
 			else {
-				tipoJava = "no sale";
+				tipoJava = tipo;
 			}
 			
 			Enunciado.nombreColumna.add(nombre);
