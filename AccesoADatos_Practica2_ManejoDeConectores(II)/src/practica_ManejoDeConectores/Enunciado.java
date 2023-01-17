@@ -79,7 +79,7 @@ public class Enunciado {
 							teclado.nextLine();
 							empleadosInsertados += sentencia.executeUpdate(inTo);
 							
-							System.out.println("Los datos se han introducido de forma correcta con fecha de alta Gracias");
+							System.out.println("Los datos se han introducido de forma correcta con fecha de alta " + fechaActual +  ". Gracias");
 
 						} else {
 							System.out.println("No se han introducido los datos");
