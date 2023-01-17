@@ -24,7 +24,7 @@ public class SwitchOpcion1 {
 				tipoJava = "Número Decimal";
 			}
 			else if(tipo.equalsIgnoreCase("DATE")) {
-				tipoJava = "Fecha en formato AAAA-MM-DD";
+				tipoJava = "Fecha actual en formato AAAA-MM-DD";
 			}
 			else {
 				tipoJava = "no sale";

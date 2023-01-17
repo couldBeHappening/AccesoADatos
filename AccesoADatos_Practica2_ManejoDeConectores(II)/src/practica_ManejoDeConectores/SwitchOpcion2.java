@@ -26,7 +26,7 @@ public class SwitchOpcion2 {
 				i--;
 				contadorError --;
 
-			} else if (guardaDatos.equals(Enunciado.fechaActual)) {
+			} else if (!guardaDatos.equals(Enunciado.fechaActual) && Enunciado.tipoColumna.get(i).equalsIgnoreCase("DATE")) {
 				System.out.println("La fecha introducida no se corresponde con la actual.");
 
 				i--;
@@ -187,7 +187,7 @@ public class SwitchOpcion2 {
 			}
 		}
 		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("DATE")) {
-			if(datoIntroducido.matches("\\d{4}\\-\\d{2}\\-\\d{2}") && datoIntroducido.equals(Enunciado.fechaActual)) {
+			if(datoIntroducido.matches("\\d{4}\\-\\d{2}\\-\\d{2}")) {
 				comprobar = true;
 				
 			} else {
