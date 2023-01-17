@@ -12,8 +12,10 @@ public class Enunciado {
 	public static Scanner teclado = new Scanner (System.in);
 	public static ArrayList <String> nombreColumna = new ArrayList <String> ();
 	public static ArrayList <String> tipoColumna = new ArrayList <String> ();
+	public static ArrayList <String> tipoColumnaJava = new ArrayList <String> ();
 	public static ArrayList <String> guardarDatos;
 	public static int numColumnas;
+	public static String fechaActual;
 
 
 	public static void main(String[] args) {
@@ -41,7 +43,7 @@ public class Enunciado {
 
 			resultadoFecha.next();
 
-			String fechaActual = new SimpleDateFormat ("dd-MM-yyyy").format(resultadoFecha.getDate(1));			
+			fechaActual = new SimpleDateFormat ("yyyy-MM-dd").format(resultadoFecha.getDate(1));			
 
 			System.out.println("¡Hola! Hoy es día " + fechaActual +  ". Indica que opción quieres realizar: ");			
 

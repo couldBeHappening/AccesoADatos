@@ -1,4 +1,5 @@
 package practica_ManejoDeConectores;
+
 import java.sql.*;
 
 public class SwitchOpcion1 {
@@ -12,9 +13,26 @@ public class SwitchOpcion1 {
 			
 			String nombre = resultadoMeta.getColumnName(i).toString();
 			String tipo = resultadoMeta.getColumnTypeName(i).toString();
+			String tipoJava = "";
+			if(tipo.equalsIgnoreCase("VARCHAR")) {
+				tipoJava = "Cadena de Texto";
+			}
+			else if(tipo.equalsIgnoreCase("INT UNSIGNED")) {
+				tipoJava = "Número Entero";
+			}
+			else if(tipo.equalsIgnoreCase("FLOAT")) {
+				tipoJava = "Número Decimal";
+			}
+			else if(tipo.equalsIgnoreCase("DATE")) {
+				tipoJava = "Fecha en formato AAAA-MM-DD";
+			}
+			else {
+				tipoJava = "no sale";
+			}
 			
 			Enunciado.nombreColumna.add(nombre);
 			Enunciado.tipoColumna.add(tipo);
+			Enunciado.tipoColumnaJava.add(tipoJava);
 		}
 	}
 	
@@ -25,7 +43,7 @@ public class SwitchOpcion1 {
 		for (int i = 1; i <= Enunciado.numColumnas; i++) {
 			
 			String nombre = resultadoMeta.getColumnName(i).toString();
-			String tipo = resultadoMeta.getColumnTypeName(i).toString();
+			String tipo = Enunciado.tipoColumnaJava.get(i-1);
 			
 			System.out.println("Nombre Columna: " + nombre + " Tipo Columna: " + tipo);
 		}

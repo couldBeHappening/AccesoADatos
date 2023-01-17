@@ -8,9 +8,9 @@ public class SwitchOpcion2 {
 	public static int solicitarDatos (Connection conexion, Statement sentencia, ResultSet resultado) throws SQLException {
 		int contadorError = 3;
 
-		for (int i = 0; i < Enunciado.numColumnas -1 && contadorError > 0; i++) {
+		for (int i = 0; i < Enunciado.numColumnas && contadorError > 0; i++) {
 
-			System.out.println("Introduce: " + Enunciado.nombreColumna.get(i) + " de tipo: " + Enunciado.tipoColumna.get(i));
+			System.out.println("Introduce: " + Enunciado.nombreColumna.get(i) + " de tipo: " + Enunciado.tipoColumnaJava.get(i));
 
 			String guardaDatos = Enunciado.teclado.nextLine();
 
@@ -41,23 +41,26 @@ public class SwitchOpcion2 {
 		}
 		return contadorError;
 	}
-	
-	
+		
 	public static String generarInsert (Connection conexion, Statement sentencia) {
 
 		String guardar = "INSERT INTO empleado VALUES (";
 
-		for (int i = 0; i < Enunciado.numColumnas -1;  i++) {
+		for (int i = 0; i < Enunciado.numColumnas;  i++) {
 
-			if (Enunciado.tipoColumna.get(i).equalsIgnoreCase("VARCHAR")) {
+			if (Enunciado.tipoColumna.get(i).equalsIgnoreCase("VARCHAR") || Enunciado.tipoColumna.get(i).equalsIgnoreCase("DATE")) {
 
-				guardar += "'" + Enunciado.guardarDatos.get(i) + "',";
+				guardar += "'" + Enunciado.guardarDatos.get(i) + "'";
 
-			} else
-				guardar += Enunciado.guardarDatos.get(i) + ",";
-
+			} else {
+				guardar += Enunciado.guardarDatos.get(i);
+			}
+			if(i < Enunciado.numColumnas-1) {
+				guardar += ",";
+			}
 		}
-		guardar += "CURDATE());";
+		guardar += ");";
+
 		return guardar;
 
 	} 
@@ -155,6 +158,7 @@ public class SwitchOpcion2 {
 					}
 					resultado.close();
 				}
+				
 			} catch (NumberFormatException e) {
 				comprobar = false;
 			}
@@ -175,6 +179,15 @@ public class SwitchOpcion2 {
 			} catch (NumberFormatException e) {
 				comprobar = false;
 			}
+		}
+		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("DATE")) {
+			if(datoIntroducido.matches("\\d{4}\\-\\d{2}\\-\\d{2}") && datoIntroducido.equals(Enunciado.fechaActual)) {
+				comprobar = true;
+				
+			} else {
+				comprobar = false;
+				
+			}			
 		}
 		return comprobar;
 	}
