@@ -4,6 +4,89 @@ import java.sql.*;
 import java.util.InputMismatchException;
 
 public class SwitchOpcion2 {
+
+	public static boolean compruebaDatos (String datoIntroducido, int posicionDato, Connection conexion, Statement sentencia) throws SQLException {
+		
+		boolean comprobar = true;
+		
+		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("INT UNSIGNED")) {
+			
+			try {
+				
+				int dato = Integer.parseInt(datoIntroducido);
+				
+				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("codigo")) {
+					
+					ResultSet resultado = sentencia.executeQuery("SELECT codigo FROM empleado;");
+					
+					while (resultado.next()) {
+						
+						int busqueda = resultado.getInt(1);
+						
+						if (busqueda == dato){
+							comprobar = false;
+							System.out.println("Código ya registrado");
+							break;
+							
+						} else {
+							comprobar = true;
+						}
+					}
+					resultado.close();
+				}
+				
+				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("codigo_departamento")) {
+					
+					ResultSet resultado;
+					resultado = sentencia.executeQuery("SELECT codigo FROM departamento;");
+					
+					while (resultado.next()) {
+
+						int busqueda = resultado.getInt(1);
+						
+						if (busqueda == dato) {
+							comprobar = true;
+							break;
+							
+						} else {
+							comprobar = false;							
+						}
+					}
+					resultado.close();
+				}
+				
+			} catch (NumberFormatException e) {
+				comprobar = false;
+			}
+		}
+		
+		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("FLOAT")) {
+			
+			try {
+				
+				double dato = Double.parseDouble(datoIntroducido);
+				
+				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("salario") && dato > 0) {
+					comprobar = true;
+					
+				} else {
+					comprobar = false;
+				}
+			} catch (NumberFormatException e) {
+				comprobar = false;
+			}
+		}
+		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("DATE")) {
+			if(datoIntroducido.matches("\\d{4}\\-\\d{2}\\-\\d{2}")) {
+				comprobar = true;
+				
+			} else {
+				comprobar = false;
+				
+			}			
+		}
+		return comprobar;
+	}
 	
 	public static int solicitarDatos (Connection conexion, Statement sentencia, ResultSet resultado) throws SQLException {
 		int contadorError = 3;
@@ -112,90 +195,7 @@ public class SwitchOpcion2 {
 		} while (opcion != 1 && opcion !=2);
 		
 		return opcionRespuesta;
-	}
+	}	
 	
-	
-	public static boolean compruebaDatos (String datoIntroducido, int posicionDato, Connection conexion, Statement sentencia) throws SQLException {
-		
-		boolean comprobar = true;
-		
-		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("INT UNSIGNED")) {
-			
-			try {
-				
-				int dato = Integer.parseInt(datoIntroducido);
-				
-				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("codigo")) {
-					
-					ResultSet resultado = sentencia.executeQuery("SELECT codigo FROM empleado;");
-					
-					while (resultado.next()) {
-						
-						int busqueda = resultado.getInt(1);
-						
-						if (busqueda == dato){
-							comprobar = false;
-							System.out.println("Código ya registrado");
-							break;
-							
-						} else {
-							comprobar = true;
-						}
-					}
-					resultado.close();
-				}
-				
-				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("codigo_departamento")) {
-					
-					ResultSet resultado;
-					resultado = sentencia.executeQuery("SELECT codigo FROM departamento;");
-					
-					while (resultado.next()) {
-
-						int busqueda = resultado.getInt(1);
-						
-						if (busqueda == dato) {
-							comprobar = true;
-							break;
-							
-						} else {
-							comprobar = false;							
-						}
-					}
-					resultado.close();
-				}
-				
-			} catch (NumberFormatException e) {
-				comprobar = false;
-			}
-		}
-		
-		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("FLOAT")) {
-			
-			try {
-				
-				double dato = Double.parseDouble(datoIntroducido);
-				
-				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("salario") && dato > 0) {
-					comprobar = true;
-					
-				} else {
-					comprobar = false;
-				}
-			} catch (NumberFormatException e) {
-				comprobar = false;
-			}
-		}
-		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("DATE")) {
-			if(datoIntroducido.matches("\\d{4}\\-\\d{2}\\-\\d{2}")) {
-				comprobar = true;
-				
-			} else {
-				comprobar = false;
-				
-			}			
-		}
-		return comprobar;
-	}
 }
 
