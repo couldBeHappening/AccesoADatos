@@ -1,7 +1,6 @@
 package practica_ManejoDeConectores;
 
 import java.sql.*;
-import java.util.InputMismatchException;
 
 public class SwitchOpcion2 {
 
@@ -188,7 +187,7 @@ public class SwitchOpcion2 {
 					System.out.println("La opción introducida no es correcta.");
 				}
 				
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Opción no válida.");
 			}
 			
