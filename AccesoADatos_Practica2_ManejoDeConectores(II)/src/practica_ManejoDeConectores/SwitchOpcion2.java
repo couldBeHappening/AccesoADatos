@@ -158,6 +158,7 @@ public class SwitchOpcion2 {
 
 		boolean opcionRespuesta = false;
 		int opcion;
+		int contador = 3;
 
 		System.out.println("¿Los datos introducidos son correctos?");
 
@@ -184,14 +185,16 @@ public class SwitchOpcion2 {
 
 				default: 	
 					System.out.println("La opción introducida no es correcta.");
+					contador --;
 				}
 
 			} catch (NumberFormatException e) {
 				System.out.println("Opción no válida.");
+				contador --;
 				opcion = 0;
 			}
 
-		} while (opcion != 1 && opcion !=2);
+		} while (opcion != 1 && opcion !=2 && contador > 0);
 
 		return opcionRespuesta;
 	}	
