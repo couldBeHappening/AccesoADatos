@@ -3,7 +3,6 @@ package practica_ManejoDeConectores;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -65,7 +64,6 @@ public class Enunciado {
 
 					case 2:
 						guardarDatos = new ArrayList <String> ();
-						//teclado.nextLine();
 
 						if(SwitchOpcion2.solicitarDatos (conexion, sentencia, resultado) == 0) {
 
@@ -78,7 +76,6 @@ public class Enunciado {
 						if (SwitchOpcion2.muestraDatosInsertados() == true) {
 
 							String inTo = SwitchOpcion2.generarInsert(conexion, sentencia);
-							teclado.nextLine();
 							empleadosInsertados += sentencia.executeUpdate(inTo);
 							
 							System.out.println("Los datos se han introducido de forma correcta con fecha de alta " + fechaActual +  ". Gracias");
@@ -120,8 +117,6 @@ public class Enunciado {
 					} else {
 						System.out.println("La opción introducida no es correcta, por favor revisa las opciones disponibles. Gracias.");
 					}
-
-					//teclado.nextLine();
 
 				}
 
