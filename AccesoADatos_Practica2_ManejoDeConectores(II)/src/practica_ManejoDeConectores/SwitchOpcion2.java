@@ -170,7 +170,7 @@ public class SwitchOpcion2 {
 			System.out.println("1. Si");
 			System.out.println("2. No");
 			
-			opcion = Enunciado.teclado.nextInt();
+			opcion = Integer.parseInt(Enunciado.teclado.nextLine());
 			
 			try {
 				

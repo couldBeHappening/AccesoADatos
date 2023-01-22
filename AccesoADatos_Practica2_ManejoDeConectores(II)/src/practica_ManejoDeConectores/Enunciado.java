@@ -54,7 +54,7 @@ public class Enunciado {
 
 				try {
 
-					opciones = teclado.nextInt();
+					opciones = Integer.parseInt(teclado.nextLine());
 
 					switch (opciones) {
 
@@ -65,7 +65,7 @@ public class Enunciado {
 
 					case 2:
 						guardarDatos = new ArrayList <String> ();
-						teclado.nextLine();
+						//teclado.nextLine();
 
 						if(SwitchOpcion2.solicitarDatos (conexion, sentencia, resultado) == 0) {
 
@@ -109,7 +109,7 @@ public class Enunciado {
 						break;
 					}
 
-				} catch (InputMismatchException e) {
+				} catch (NumberFormatException e) {
 
 					contador --;
 					if (contador == 0) {
@@ -121,7 +121,7 @@ public class Enunciado {
 						System.out.println("La opción introducida no es correcta, por favor revisa las opciones disponibles. Gracias.");
 					}
 
-					teclado.nextLine();
+					//teclado.nextLine();
 
 				}
 
