@@ -92,10 +92,21 @@ public class SwitchOpcion2 {
 				comprobar = false;
 			}
 			
+		}
+		
+		if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("nombre")|| Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("apellido1")
+				|| Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("apellido2"))  {
+			if (datoIntroducido.matches("[A-Za-z]{1,100}")) {
+				comprobar = true;
+			} else {
+				comprobar = false;
+			}
 			
 		}
 		return comprobar;
 	}
+	
+	
 
 	public static int solicitarDatos (Connection conexion, Statement sentencia, ResultSet resultado) throws SQLException {
 		int contadorError = 3;
