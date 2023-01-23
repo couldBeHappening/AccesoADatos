@@ -84,6 +84,16 @@ public class SwitchOpcion2 {
 
 			}			
 		}
+		
+		if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("NIF"))  {
+			if (datoIntroducido.matches("\\d{8}[A-Z]")) {
+				comprobar = true;
+			} else {
+				comprobar = false;
+			}
+			
+			
+		}
 		return comprobar;
 	}
 
