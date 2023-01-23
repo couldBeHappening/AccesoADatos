@@ -118,6 +118,8 @@ public class Enunciado {
 						System.out.println("La opción introducida no es correcta, por favor revisa las opciones disponibles. Gracias.");
 					}
 
+				} catch (SQLException e) {
+					System.out.println("¡Error! Comprueba que los datos introducidos son correctos");
 				}
 
 			} while (opciones != 3 && contador > 0);
