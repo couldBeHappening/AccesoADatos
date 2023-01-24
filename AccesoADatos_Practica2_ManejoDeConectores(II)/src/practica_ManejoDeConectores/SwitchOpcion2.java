@@ -129,14 +129,14 @@ public class SwitchOpcion2 {
 				i--;
 				contadorError --;
 
-			} else if (!guardaDatos.equals(Enunciado.fechaActual) && Enunciado.tipoColumna.get(i).equalsIgnoreCase("DATE")) {
-				System.out.println("La fecha introducida no se corresponde con la actual.");
+			} else if (!compruebaDatos(guardaDatos,i,conexion,sentencia)) {
+				System.out.println("El dato introducido no es correcto.");
 
 				i--;
 				contadorError --;
 
-			} else if (!compruebaDatos(guardaDatos,i,conexion,sentencia)) {
-				System.out.println("El dato introducido no es correcto.");
+			}  else if (!guardaDatos.equals(Enunciado.fechaActual) && Enunciado.tipoColumna.get(i).equalsIgnoreCase("DATE")) {
+				System.out.println("La fecha introducida no se corresponde con la actual.");
 
 				i--;
 				contadorError --;
