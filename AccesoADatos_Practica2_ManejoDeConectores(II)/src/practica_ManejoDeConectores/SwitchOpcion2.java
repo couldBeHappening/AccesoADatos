@@ -8,16 +8,20 @@ public class SwitchOpcion2 {
 	/* Método comprueba datos con parámetros */
 	public static boolean compruebaDatos (String datoIntroducido, int posicionDato, Connection conexion, Statement sentencia) throws SQLException {
 
-		boolean comprobar = true; /* */ 
+		boolean comprobar = true; /* variable que devolverá el valor del método */ 
 
+		/* Primer condicional if comprueba en los datos que deben ser "INT UNSIGNED" */
 		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("INT UNSIGNED")) {
 
+			/* Abrimos un try-catch, intentamos parsear y si no es posible capturamos la excepción */
 			try {
 
 				int dato = Integer.parseInt(datoIntroducido);
 
+				/* En caso de que le dato se la columna "codigo" comprobaremos que no esté en la BBDD */
 				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("codigo")) {
 
+					/* Hacemos una consulta y comparamos lo resultados con un bucle while, indicando en comprobar si es true o false */
 					ResultSet resultado = sentencia.executeQuery("SELECT codigo FROM empleado;");
 
 					while (resultado.next()) {

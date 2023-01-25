@@ -8,10 +8,10 @@ public class SwitchOpcion1 {
 	/* Método que nos muestra la información de las tablas con parámetros */
 	public static void informacionTabla (Connection conexion, Statement sentencia, ResultSetMetaData resultadoMeta) throws SQLException {
 		
-		/* */
+		/* Guardamos la cantidad de columnas en la variable de la clase Enunciado */
 		Enunciado.numColumnas = resultadoMeta.getColumnCount();
 		
-		/* */
+		/* Recorremos los metadatos para ir sabiendo el nombre y tipo de la columna y guardamos a información en variables */
 		for (int i = 1; i <= Enunciado.numColumnas; i++) {
 			
 			String nombre = resultadoMeta.getColumnName(i).toString();
@@ -33,6 +33,7 @@ public class SwitchOpcion1 {
 				tipoJava = tipo;
 			}
 			
+			/* Añadimos lo guardado en las variables a los ArrayList de la clase Enunciado para usarlos después */
 			Enunciado.nombreColumna.add(nombre);
 			Enunciado.tipoColumna.add(tipo);
 			Enunciado.tipoColumnaJava.add(tipoJava);

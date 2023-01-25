@@ -124,7 +124,7 @@ public class Enunciado {
 						break;
 					}
 
-				} catch (NumberFormatException e) { /* */
+				} catch (NumberFormatException e) { /* Aquí capturamos la excepción que salta en caso de que el parseo a entero falle */
 
 					contador --;
 					if (contador == 0) {
@@ -142,11 +142,12 @@ public class Enunciado {
 
 			} while (opciones != 3 && contador > 0);
 
-			/*  */
+			/* Cerramos todos los objetos SQL */
 			conexion.close();
 			sentencia.close();
 			resultado.close();
 
+		/* Capturamos cualquier excepción de los objetos SQL */
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
