@@ -1,12 +1,14 @@
 package practica_ManejoDeConectores;
 
+/* Importamos las librerias que vamos a utilizar */
 import java.sql.*;
 
 public class SwitchOpcion2 {
 
+	/* Método comprueba datos con parámetros */
 	public static boolean compruebaDatos (String datoIntroducido, int posicionDato, Connection conexion, Statement sentencia) throws SQLException {
 
-		boolean comprobar = true;
+		boolean comprobar = true; /* */ 
 
 		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("INT UNSIGNED")) {
 
@@ -107,7 +109,7 @@ public class SwitchOpcion2 {
 	}
 	
 	
-
+	/* Método comprueba datos con parámetros y capturamos la SQLException */
 	public static int solicitarDatos (Connection conexion, Statement sentencia, ResultSet resultado) throws SQLException {
 		int contadorError = 3;
 
@@ -150,7 +152,7 @@ public class SwitchOpcion2 {
 		}
 		return contadorError;
 	}
-
+	/* Método comprueba datos con parámetros */
 	public static String generarInsert (Connection conexion, Statement sentencia) {
 
 		String guardar = "INSERT INTO empleado VALUES (";
@@ -174,7 +176,7 @@ public class SwitchOpcion2 {
 
 	} 
 
-
+	/* Método muestraDatosInsertados  */
 	public static boolean muestraDatosInsertados () {
 
 		boolean opcionRespuesta = false;
@@ -187,13 +189,14 @@ public class SwitchOpcion2 {
 
 			System.out.println(Enunciado.nombreColumna.get(i) + " : " + Enunciado.guardarDatos.get(i));
 		}
-		do {
+		do { /* Bucle do-while haz mientras, nos muestra las opciones de si/no */
 			try {
 				System.out.println("1. Si");
 				System.out.println("2. No");
 
 				opcion = Integer.parseInt(Enunciado.teclado.nextLine());
 
+				/* Condicional switch para validar si guardamos los datos o no */
 				switch (opcion){
 
 				case 1:
@@ -204,21 +207,22 @@ public class SwitchOpcion2 {
 					opcionRespuesta = false;
 					break;
 
+					/* Con el default indicamos por pantalla que la opción no es correcta */
 				default: 	
 					System.out.println("La opción introducida no es correcta.");
 					contador --;
 				}
 
+				/* Capturamos la excepción NumberFormatException, por si no nos introduce un número y lo hace con letras o caracteres extraños */
 			} catch (NumberFormatException e) {
 				System.out.println("Opción no válida.");
 				contador --;
 				opcion = 0;
 			}
-
+			/* Mientras que las opciones sean distintas de 1 o 2 el */
 		} while (opcion != 1 && opcion !=2 && contador > 0);
 
 		return opcionRespuesta;
 	}	
-
 }
 

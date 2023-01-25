@@ -1,14 +1,17 @@
 package practica_ManejoDeConectores;
 
+/* Importamos las librerias que vamos a utilizar */
 import java.sql.*;
 
 public class SwitchOpcion1 {
 	
-	
+	/* Método que nos muestra la información de las tablas con parámetros */
 	public static void informacionTabla (Connection conexion, Statement sentencia, ResultSetMetaData resultadoMeta) throws SQLException {
 		
+		/* */
 		Enunciado.numColumnas = resultadoMeta.getColumnCount();
 		
+		/* */
 		for (int i = 1; i <= Enunciado.numColumnas; i++) {
 			
 			String nombre = resultadoMeta.getColumnName(i).toString();
@@ -36,6 +39,7 @@ public class SwitchOpcion1 {
 		}
 	}
 	
+	/* Método que consulta la información de los tipos de datos de la tabla con parámetros */
 	public static void consultaTabla (Connection conexion, Statement sentencia, ResultSetMetaData resultadoMeta) throws SQLException {
 		
 		System.out.println("La tabla empleados, tiene " + Enunciado.numColumnas + " columnas.");
