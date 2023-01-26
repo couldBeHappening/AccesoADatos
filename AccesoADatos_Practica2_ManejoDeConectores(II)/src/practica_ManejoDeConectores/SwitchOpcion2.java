@@ -10,7 +10,7 @@ public class SwitchOpcion2 {
 
 		boolean comprobar = true; /* variable que devolverá el valor del método */ 
 
-		/* Primer condicional if comprueba en los datos que deben ser "INT UNSIGNED" */
+		/* Primer condicional if comprueba los datos que deben ser "INT UNSIGNED" */
 		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("INT UNSIGNED")) {
 
 			/* Abrimos un try-catch, intentamos parsear y si no es posible capturamos la excepción */
@@ -21,7 +21,7 @@ public class SwitchOpcion2 {
 				/* En caso de que le dato se la columna "codigo" comprobaremos que no esté en la BBDD */
 				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("codigo")) {
 
-					/* Hacemos una consulta y comparamos lo resultados con un bucle while, indicando en comprobar si es true o false */
+					/* Hacemos una consulta y comparamos los resultados con un bucle while, indicando en comprobar si es true o false */
 					ResultSet resultado = sentencia.executeQuery("SELECT codigo FROM empleado;");
 
 					while (resultado.next()) {
@@ -40,6 +40,7 @@ public class SwitchOpcion2 {
 					resultado.close();
 				}
 
+				/* En el caso del codigo de departamento lo que se busca es que sí exista en la tabla, de forma prácticamente igual al método anterior */
 				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("codigo_departamento")) {
 
 					ResultSet resultado;
@@ -60,17 +61,21 @@ public class SwitchOpcion2 {
 					resultado.close();
 				}
 
+			/* Si salta la excepción, el dato es incorrecto */
 			} catch (NumberFormatException e) {
 				comprobar = false;
 			}
 		}
 
+		/* El segundo if comprueba los datos que deben ser tipo "FLOAT" */
 		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("FLOAT")) {
 
 			try {
 
+				/* Al igual que antes se intenta el parse a double */
 				double dato = Double.parseDouble(datoIntroducido);
 
+				/* Si el dato se corresponde con la columna salario, se compruea que se mayor que 0 */
 				if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("salario") && dato > 0) {
 					comprobar = true;
 
@@ -81,6 +86,8 @@ public class SwitchOpcion2 {
 				comprobar = false;
 			}
 		}
+		
+		/* El tercer if comprueba los datos que deben ser fechas DATE y si el formato es el correcto */
 		if (Enunciado.tipoColumna.get(posicionDato).equalsIgnoreCase("DATE")) {
 			if(datoIntroducido.matches("\\d{4}\\-\\d{2}\\-\\d{2}")) {
 				comprobar = true;
@@ -91,6 +98,7 @@ public class SwitchOpcion2 {
 			}			
 		}
 		
+		/* En el cuarto if, validamos el formato de la columna nif */
 		if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("NIF"))  {
 			if (datoIntroducido.matches("\\d{8}[A-Z]")) {
 				comprobar = true;
@@ -100,6 +108,7 @@ public class SwitchOpcion2 {
 			
 		}
 		
+		/* Por último, las columna nombre, apellido1 y apellido2 no admiten números ni caracteres especiales, sólo letras */
 		if (Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("nombre")|| Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("apellido1")
 				|| Enunciado.nombreColumna.get(posicionDato).equalsIgnoreCase("apellido2"))  {
 			if (datoIntroducido.matches("[A-Za-z]{1,100}")) {
@@ -113,40 +122,46 @@ public class SwitchOpcion2 {
 	}
 	
 	
-	/* Método comprueba datos con parámetros y capturamos la SQLException */
+	/* Método comprueba datos con parámetros y capturamos la SQLException, tiene un contador que registra los errores al introducir los datos */
 	public static int solicitarDatos (Connection conexion, Statement sentencia, ResultSet resultado) throws SQLException {
 		int contadorError = 3;
 
+		/* Con el bucle for, indicamos que solicite tantos datos como columnas tiene la tabla y evaluamos el límite de errores */ 
 		for (int i = 0; i < Enunciado.numColumnas && contadorError > 0; i++) {
 
 			System.out.println("Introduce: " + Enunciado.nombreColumna.get(i) + " de tipo: " + Enunciado.tipoColumna.get(i) + " (" + Enunciado.tipoColumnaJava.get(i) + ")");
 
 			String guardaDatos = Enunciado.teclado.nextLine();
 
+			/* Comprobamos que no se metan valores vacíos */
 			if (guardaDatos.length() <= 0){
 				System.out.println("El campo no puede estar vacio.");
 
 				i--;
 				contadorError --;
 
+			/* Comprobamos que no se metan valores nulos */
 			} else if (guardaDatos.equalsIgnoreCase("null")){
 				System.out.println("El dato introducido no puede ser null.");
 
 				i--;
 				contadorError --;
 
+			/* Comprobamos que no se metan valores erróneos con el método compruebaDatos() */
 			} else if (!compruebaDatos(guardaDatos,i,conexion,sentencia)) {
 				System.out.println("El dato introducido no es correcto.");
 
 				i--;
 				contadorError --;
 
+			/* Comprobamos que la fecha se la actual */
 			}  else if (!guardaDatos.equals(Enunciado.fechaActual) && Enunciado.tipoColumna.get(i).equalsIgnoreCase("DATE")) {
 				System.out.println("La fecha introducida no se corresponde con la actual.");
 
 				i--;
 				contadorError --;
 
+			/* Si pasa los filtros anteriores se guarda en el ArrayList guardarDatos de la clase Enunciado y se resetea el contador de errores */
 			} else {
 
 				Enunciado.guardarDatos.add(guardaDatos);
@@ -156,7 +171,7 @@ public class SwitchOpcion2 {
 		}
 		return contadorError;
 	}
-	/* Método comprueba datos con parámetros */
+	/* Método generarInsert que devuelve un String, se comprueba el tipo de datos para dar formato correcto */
 	public static String generarInsert (Connection conexion, Statement sentencia) {
 
 		String guardar = "INSERT INTO empleado VALUES (";
@@ -180,7 +195,7 @@ public class SwitchOpcion2 {
 
 	} 
 
-	/* Método muestraDatosInsertados  */
+	/* Método muestraDatosInsertados, se le muestra la información introducida y devuelve un booleano en caso de que el usuario indique  que es correcto o no */
 	public static boolean muestraDatosInsertados () {
 
 		boolean opcionRespuesta = false;
@@ -223,7 +238,7 @@ public class SwitchOpcion2 {
 				contador --;
 				opcion = 0;
 			}
-			/* Mientras que las opciones sean distintas de 1 o 2 el */
+			/* Mientras que las opciones sean distintas de 1 o 2 el método pide la respuesta hasta que falle 3 veces */
 		} while (opcion != 1 && opcion !=2 && contador > 0);
 
 		return opcionRespuesta;

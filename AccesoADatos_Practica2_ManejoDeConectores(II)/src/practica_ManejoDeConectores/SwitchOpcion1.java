@@ -40,7 +40,7 @@ public class SwitchOpcion1 {
 		}
 	}
 	
-	/* Método que consulta la información de los tipos de datos de la tabla con parámetros */
+	/* Método que consulta la información de los tipos de datos de la tabla con parámetros, usamos los metadaos obtenidos en el metodo anterior */
 	public static void consultaTabla (Connection conexion, Statement sentencia, ResultSetMetaData resultadoMeta) throws SQLException {
 		
 		System.out.println("La tabla empleados, tiene " + Enunciado.numColumnas + " columnas.");
