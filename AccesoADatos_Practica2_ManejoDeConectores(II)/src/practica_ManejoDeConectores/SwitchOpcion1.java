@@ -51,10 +51,12 @@ public class SwitchOpcion1 {
 		/* for que recorre los ArrayList de la clase Enunciado y los muestra por pantalla */
 		for (int i = 1; i <= Enunciado.numColumnas; i++) {
 			
+			/* Guardamos los datos en variables para imprimirlo por pantalla */
 			String nombre = resultadoMeta.getColumnName(i).toString();
 			String tipo = Enunciado.tipoColumna.get(i-1);
 			String tipoJava = Enunciado.tipoColumnaJava.get(i-1);
 			
+			/* Mostramos datos por pantalla */
 			System.out.println("Nombre Columna: " + nombre + " Tipo Columna: " + tipo + " (" + tipoJava + ")");
 		}
 	}
